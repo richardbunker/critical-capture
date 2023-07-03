@@ -9,10 +9,10 @@ export default function Navbar() {
         </Link>
       </section>
       <section className="flex items-center justify-between space-x-4">
-        <Link href={"/login"} title="Login" className="font-sans text-sm text-gray-400">
+        <Link href={"/api/auth/signin"} title="Login" className="font-sans text-sm text-gray-400">
           Login
         </Link>
-        <Link href={"/join"} title="Join" className="font-sans text-sm text-purple-400">
+        <Link href={"/api/auth/join"} title="Join" className="font-sans text-sm text-purple-400">
           Join
         </Link>
       </section>
