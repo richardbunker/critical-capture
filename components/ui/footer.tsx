@@ -5,7 +5,7 @@ export default function Footer() {
     <nav className="flex flex-col items-center justify-center py-8 bg-white">
       <section>
         <Link href={"/"} className="font-brand text-purple-600 text-sm">
-          Critical Captures
+          Critical Capture
         </Link>
       </section>
       <section className="flex items-center justify-between space-x-4 text-xs text-gray-300">
