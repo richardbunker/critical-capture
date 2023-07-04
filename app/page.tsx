@@ -1,3 +1,4 @@
+import PostsContainer from "@/components/posts/posts";
 import Link from "next/link";
 
 export default function Landing({ session }: { session: string }) {
@@ -28,7 +29,8 @@ export default function Landing({ session }: { session: string }) {
         <h3 className="w-full text-center text-lg font-brand text-gray-100 px-4">
           Recent Critiques
         </h3>
-        <article className="bg-gray-50 p-4">
+        <PostsContainer />
+        {/* <article className="bg-gray-50 p-4">
           <div className="space-y-2">
             <div className="">
               <h4 className="text-sm font-bold text-gray-600 flex items-center justify-between">
@@ -102,7 +104,7 @@ export default function Landing({ session }: { session: string }) {
               </div>
             </div>
           </div>
-        </article>
+        </article> */}
       </section>
     </main>
   );
