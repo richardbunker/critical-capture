@@ -1,4 +1,3 @@
-import { log } from "console";
 import Link from "next/link";
 
 export default function Landing({ session }: { session: string }) {
