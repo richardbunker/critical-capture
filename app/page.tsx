@@ -1,6 +1,7 @@
+import { log } from "console";
 import Link from "next/link";
 
-export default function Landing() {
+export default function Landing({ session }: { session: string }) {
   return (
     <main className="font-sans text-lg space-y-4">
       <section className="text-center w-full py-2 mt-4">
