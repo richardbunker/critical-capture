@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Post {
+  id            Int       @id @default(autoincrement())
+  caption       String    @db.VarChar(255)
+  focal_length  String    @db.VarChar(255)
+  shutter_speed String    @db.VarChar(255)
+  f_stop        String    @db.VarChar(255)
+  iso           String    @db.VarChar(255)
+  createdAt     DateTime  @default(now()) @db.Timestamp(0)
+  image         String
+  authorId      Int
+  User          User      @relation(fields: [authorId], references: [id])
+  Comment       Comment[]
+
+  @@index([authorId], map: "authorId")
+}
+
+model User {
+  id       Int       @id @default(autoincrement())
+  username String    @unique(map: "username") @db.VarChar(255)
+  password String    @db.VarChar(255)
+  Post     Post[]
+  Comment  Comment[]
+  Reply    Reply[]
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  text      String
+  createdAt DateTime @default(now()) @db.Timestamp(0)
+  authorId  Int
+  User      User     @relation(fields: [authorId], references: [id])
+  postId    Int
+  Post      Post     @relation(fields: [postId], references: [id])
+  replies   Reply[]
+}
+
+model Reply {
+  id        Int      @id @default(autoincrement())
+  text      String
+  createdAt DateTime @default(now()) @db.Timestamp(0)
+  authorId  Int
+  User      User     @relation(fields: [authorId], references: [id])
+  commentId Int
+  Comment   Comment  @relation(fields: [commentId], references: [id])
+}

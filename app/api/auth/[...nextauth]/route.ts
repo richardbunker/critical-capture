@@ -1,4 +1,5 @@
-import { validateCredentials } from "@/lib/utils";
+import prisma from "@/lib/prisma";
+import { validateUser } from "@/lib/utils";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -16,11 +17,10 @@ const handler = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        // Validate user
-        const user = await validateCredentials(credentials?.username, credentials?.password);
-        // If valid return user or null
-        if (user) {
-          return user;
+        // Get user from db
+        const db_user = await prisma.user.findFirst({ where: { username: credentials?.username } });
+        if (db_user) {
+          return await validateUser(db_user, credentials?.password);
         } else {
           return null;
         }

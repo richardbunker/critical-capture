@@ -1,13 +1,22 @@
-import { Awaitable, User } from "next-auth";
+import bcrypt from "bcrypt";
 
-export const validateCredentials = (
-  username: string | undefined,
+export const validateUser = async (
+  db_user: {
+    id: number;
+    username: string;
+    password: string;
+  },
   password: string | undefined
-): Awaitable<User | null> => {
-  const match =
-    username === process.env.TESTING_USERNAME && password === process.env.TESTING_PASSWORD;
-  if (match) {
-    return { id: "1", name: process.env.TESTING_USERNAME };
+) => {
+  if (!db_user) {
+    return null;
+  }
+  if (password) {
+    const match = await bcrypt.compare(password, db_user.password);
+    if (match) {
+      const user = { id: String(db_user.id), name: db_user.username };
+      return user;
+    }
   }
   return null;
 };
