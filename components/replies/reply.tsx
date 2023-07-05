@@ -1,15 +1,13 @@
-import prisma from "@/lib/prisma";
+import { ReplyWithUser } from "@/lib/types";
 import { prettyDate } from "@/lib/utils";
 import { Reply } from "@prisma/client";
-import { log } from "console";
-
-export interface IReplyProps {
-  reply: Reply & { user: { username: string } };
+export default async function Reply({
+  reply,
+  postUserId,
+}: {
+  reply: ReplyWithUser;
   postUserId: number;
-}
-
-export default async function Reply({ reply, postUserId }: IReplyProps) {
-  log(reply, postUserId);
+}) {
   return (
     <section id="reply" className="pl-4">
       <div className="flex flex-col p-1 text-sm">

@@ -1,13 +1,9 @@
 import { prettyDate } from "@/lib/utils";
 import CommentsContainer from "../comments/commentsContainer";
-import { CommentWithReplies } from "@/lib/types";
+import { PostWithComments } from "@/lib/types";
 import { Post } from "@prisma/client";
 
-export interface PostProps {
-  post: Post & { comments: CommentWithReplies[]; user: { username: string } };
-}
-
-export default function Post({ post }: PostProps) {
+export default function Post({ post }: { post: PostWithComments }) {
   return (
     <article className="bg-gray-50 p-4">
       <div className="space-y-2">
