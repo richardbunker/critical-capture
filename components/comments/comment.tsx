@@ -1,7 +1,4 @@
-// import prisma from "@/lib/prisma";
 import { prettyDate } from "@/lib/utils";
-// import { Comment, Reply } from "@prisma/client";
-import { log } from "console";
 import RepliesContainer from "../replies/repliesContainer";
 import { CommentWithReplies } from "@/lib/types";
 
