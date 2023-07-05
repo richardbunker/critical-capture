@@ -1,12 +1,13 @@
 import Comment from "./comment";
 import { CommentWithReplies } from "@/lib/types";
 
-export interface ICommentsContainerProps {
+export default async function CommentsContainer({
+  comments,
+  postUserId,
+}: {
   comments: CommentWithReplies[];
   postUserId: number;
-}
-
-export default async function CommentsContainer({ comments, postUserId }: ICommentsContainerProps) {
+}) {
   return (
     <>
       {comments.map((comment: CommentWithReplies, index) => {

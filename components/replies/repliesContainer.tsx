@@ -1,12 +1,13 @@
 import Reply from "./reply";
 import { ReplyWithUser } from "@/lib/types";
 
-export interface IRepliesProp {
+export default async function RepliesContainer({
+  replies,
+  postUserId,
+}: {
   replies: ReplyWithUser[];
   postUserId: number;
-}
-
-export default async function RepliesContainer({ replies, postUserId }: IRepliesProp) {
+}) {
   return (
     <>
       {replies.map((reply, index) => {

@@ -5,13 +5,13 @@ import { log } from "console";
 import RepliesContainer from "../replies/repliesContainer";
 import { CommentWithReplies } from "@/lib/types";
 
-export interface CommentProp {
+export default async function Comment({
+  comment,
+  postUserId,
+}: {
   comment: CommentWithReplies;
   postUserId: number;
-}
-
-export default async function Comment({ comment, postUserId }: CommentProp) {
-  log(comment);
+}) {
   return (
     <div className="flex flex-col p-1 text-sm">
       <span className="text-purple-400">{comment.user.username}</span>
