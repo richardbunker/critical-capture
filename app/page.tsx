@@ -25,7 +25,7 @@ export default function Landing({ session }: { session: string }) {
           <Link href={"/abstract"}>abstract</Link>
         </article>
       </section>
-      <section className="py-2 space-y-2">
+      <section className="py-2 space-y-2 w-full md:max-w-2xl md:mx-auto">
         <h3 className="w-full text-center text-lg font-brand text-gray-100 px-4">
           Recent Critiques
         </h3>

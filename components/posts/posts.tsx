@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import Post from "./post";
 import { Posts } from "@/lib/types";
+import { prettyDate } from "@/lib/utils";
 
 export default async function PostsContainer() {
   const posts: Posts = await prisma.post.findMany({
@@ -14,9 +15,15 @@ export default async function PostsContainer() {
       },
     },
   });
+  const formattedPosts = posts.map((post) => {
+    return {
+      ...post,
+      formattedDate: prettyDate(post.createdAt),
+    };
+  });
   return (
     <>
-      {posts.map((post, index) => {
+      {formattedPosts.map((post, index) => {
         return <Post post={post} key={index} />;
       })}
     </>

@@ -3,9 +3,9 @@ import CommentsContainer from "../comments/commentsContainer";
 import { PostWithComments } from "@/lib/types";
 import { Post } from "@prisma/client";
 
-export default function Post({ post }: { post: PostWithComments }) {
+export default function Post({ post }: { post: PostWithComments & { formattedDate: string } }) {
   return (
-    <article className="bg-gray-50 p-4">
+    <article className="bg-gray-50 p-4 md:rounded-xl md:shadow-lg">
       <div className="space-y-2">
         <div className="space-y-1">
           <h4 className="font-bold text-gray-600 flex flex-col items-start justify-start">
@@ -27,7 +27,7 @@ export default function Post({ post }: { post: PostWithComments }) {
           className="flex items-center justify-center object-fill rounded-xl w-full bg-gray-200 text-gray-100"
         />
         <div id="comments" className="">
-          <CommentsContainer postUserId={post.userId} comments={post.comments} />
+          <CommentsContainer postUserId={post.userId} comments={post.comments} postId={post.id} />
         </div>
       </div>
     </article>

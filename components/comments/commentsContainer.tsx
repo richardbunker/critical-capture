@@ -1,13 +1,16 @@
 import { getServerSession } from "next-auth";
 import Comment from "./comment";
 import { CommentWithReplies } from "@/lib/types";
+import CreateComment from "./client/create";
 
 export default async function CommentsContainer({
   comments,
   postUserId,
+  postId,
 }: {
   comments: CommentWithReplies[];
   postUserId: number;
+  postId: number;
 }) {
   const session = await getServerSession();
   return (
@@ -17,11 +20,7 @@ export default async function CommentsContainer({
           return <Comment postUserId={postUserId} comment={comment} key={index} />;
         })}
       </div>
-      {session && (
-        <div className="text-sm text-gray-600 border-2 rounded-full py-2 px-3">
-          Write a comment...
-        </div>
-      )}
+      {session && <CreateComment postId={postId} username={session.user?.name} />}
     </div>
   );
 }
