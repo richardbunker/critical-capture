@@ -16,7 +16,10 @@ export async function POST(request: Request) {
           postId: postId,
           userId: user.id,
         },
-        include: { user: { select: { username: true } } },
+        include: {
+          user: { select: { username: true } },
+          replies: { include: { user: { select: { username: true } } } },
+        },
       });
       return NextResponse.json({ err: false, data: comment });
     }

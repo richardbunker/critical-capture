@@ -1,9 +1,9 @@
 import prisma from "@/lib/prisma";
 import Post from "./post";
 import { Posts } from "@/lib/types";
-import { prettyDate } from "@/lib/utils";
+import { Session } from "next-auth";
 
-export default async function PostsContainer() {
+export default async function PostsContainer({ session }: { session: Session | null }) {
   const posts: Posts = await prisma.post.findMany({
     include: {
       user: { select: { username: true } },
@@ -15,16 +15,10 @@ export default async function PostsContainer() {
       },
     },
   });
-  const formattedPosts = posts.map((post) => {
-    return {
-      ...post,
-      formattedDate: prettyDate(post.createdAt),
-    };
-  });
   return (
     <>
-      {formattedPosts.map((post, index) => {
-        return <Post post={post} key={index} />;
+      {posts.map((post, index) => {
+        return <Post post={post} key={index} session={session} />;
       })}
     </>
   );

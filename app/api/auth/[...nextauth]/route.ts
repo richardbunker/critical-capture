@@ -1,5 +1,6 @@
 import prisma from "@/lib/prisma";
 import { validateUser } from "@/lib/utils";
+import { log } from "console";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -34,7 +35,7 @@ const handler = NextAuth({
     async redirect({ baseUrl }) {
       return baseUrl;
     },
-    async session({ session, token, user }) {
+    async session({ session }) {
       return session;
     },
   },

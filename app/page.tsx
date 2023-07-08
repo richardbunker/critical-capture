@@ -1,7 +1,9 @@
 import PostsContainer from "@/components/posts/posts";
+import { Session, getServerSession } from "next-auth";
 import Link from "next/link";
 
-export default function Landing({ session }: { session: string }) {
+export default async function Landing() {
+  const session = await getServerSession();
   return (
     <main className="font-sans text-lg space-y-4">
       <section className="text-center w-full py-2 mt-4">
@@ -29,7 +31,7 @@ export default function Landing({ session }: { session: string }) {
         <h3 className="w-full text-center text-lg font-brand text-gray-100 px-4">
           Recent Critiques
         </h3>
-        <PostsContainer />
+        <PostsContainer session={session} />
       </section>
     </main>
   );

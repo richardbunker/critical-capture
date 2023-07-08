@@ -1,7 +1,7 @@
 import Reply from "./reply";
 import { ReplyWithUser } from "@/lib/types";
 
-export default async function RepliesContainer({
+export default function RepliesContainer({
   replies,
   postUserId,
 }: {

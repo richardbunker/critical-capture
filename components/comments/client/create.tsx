@@ -1,21 +1,13 @@
-"use client";
 import { useState } from "react";
-import Container from "./container";
 
-type ClientComment = {
-  userName: string | undefined | null;
-  text: string;
-  createdAt: Date;
-};
 export default function CreateComment({
-  username,
   postId,
+  onCreateComment,
 }: {
-  username: string | undefined | null;
   postId: number;
+  onCreateComment: () => void;
 }) {
   const [text, setText] = useState("");
-  const [comments, setComments] = useState(Array<ClientComment>);
   const handleSubmit = (e: any) => {
     e.preventDefault();
     if (text.length > 0) {
@@ -25,6 +17,7 @@ export default function CreateComment({
         headers: {
           "Content-Type": "application/json",
         },
+        cache: "no-store",
         body: JSON.stringify({ text, postId }),
       })
         .then((data) => data.json())
@@ -32,7 +25,7 @@ export default function CreateComment({
           if (err) {
             console.log(err);
           } else {
-            setComments((prevState) => [...prevState, { ...data }]);
+            onCreateComment();
           }
         });
       setText("");
@@ -40,7 +33,6 @@ export default function CreateComment({
   };
   return (
     <section>
-      <article>{comments.length > 0 && <Container comments={comments} />}</article>
       <form onSubmit={handleSubmit} className="w-full">
         <article className="flex text-base text-gray-600 border-2 rounded-full bg-purple-200 w-full">
           <input
