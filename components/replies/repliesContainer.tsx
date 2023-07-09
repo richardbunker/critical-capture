@@ -1,13 +1,14 @@
-import Reply from "./reply";
+"use client";
 import { ReplyWithUser } from "@/lib/types";
+import { Reply } from "./Reply";
 
-export default function RepliesContainer({
+export const RepliesContainer = ({
   replies,
   postUserId,
 }: {
   replies: ReplyWithUser[];
   postUserId: number;
-}) {
+}) => {
   return (
     <>
       {replies.map((reply, index) => {
@@ -15,4 +16,4 @@ export default function RepliesContainer({
       })}
     </>
   );
-}
+};

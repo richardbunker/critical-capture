@@ -18,7 +18,7 @@ export default function CreateComment({
           "Content-Type": "application/json",
         },
         cache: "no-store",
-        body: JSON.stringify({ text, postId }),
+        body: JSON.stringify({ text, postId, date: new Date() }),
       })
         .then((data) => data.json())
         .then(({ err, data }) => {

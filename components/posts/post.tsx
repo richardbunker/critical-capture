@@ -1,17 +1,10 @@
 "use client";
-import _CommentsContainer from "../comments/_container";
 import { PostWithComments } from "@/lib/types";
-import { Post } from "@prisma/client";
 import { Session } from "next-auth";
-import { _prettyDate } from "../comments/client/utils";
+import { CommentsContainer } from "../comments/CommentsContainer";
+import { prettyDate } from "../clib/utils";
 
-export default function Post({
-  post,
-  session,
-}: {
-  post: PostWithComments;
-  session: Session | null;
-}) {
+export const Post = ({ post, session }: { post: PostWithComments; session: Session | null }) => {
   return (
     <article className="bg-gray-50 p-4 md:rounded-xl md:shadow-lg">
       <div className="space-y-2">
@@ -22,7 +15,7 @@ export default function Post({
               <span className="text-xs font-bold text-gray-300">by</span>
               <span className="text-xs font-bold text-purple-300">{post.user.username}</span>
               <span className="text-xs font-normal text-gray-300">
-                {_prettyDate(post.createdAt)}
+                {prettyDate(post.createdAt)}
               </span>
             </div>
           </h4>
@@ -35,7 +28,7 @@ export default function Post({
           className="flex items-center justify-center object-fill rounded-xl w-full bg-gray-200 text-gray-100"
         />
         <div id="comments" className="">
-          <_CommentsContainer
+          <CommentsContainer
             postUserId={post.userId}
             comments={post.comments}
             postId={post.id}
@@ -45,4 +38,4 @@ export default function Post({
       </div>
     </article>
   );
-}
+};

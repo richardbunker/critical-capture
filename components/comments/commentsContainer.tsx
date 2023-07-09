@@ -1,26 +1,49 @@
-import { getServerSession } from "next-auth";
-import Comment from "./comment";
+"use client";
 import { CommentWithReplies } from "@/lib/types";
-import CreateComment from "./client/create";
+import CreateComment from "./create";
+import { useState } from "react";
+import { Session } from "next-auth";
+import { Comment } from "./Comment";
 
-export default async function CommentsContainer({
+export const CommentsContainer = ({
   comments,
   postUserId,
   postId,
+  session,
 }: {
   comments: CommentWithReplies[];
   postUserId: number;
   postId: number;
-}) {
-  const session = await getServerSession();
+  session: Session | null;
+}) => {
+  const [initComments, setInitComments] = useState(comments);
+  const handleCreateComment = () => {
+    fetch(`/api/comment/index?postId=${postId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      cache: "no-store",
+    })
+      .then((data) => data.json())
+      .then(({ err, data }) => {
+        if (err) {
+          console.log(err);
+        } else {
+          setInitComments(data);
+        }
+      });
+  };
   return (
     <div>
       <div className="">
-        {comments.map((comment: CommentWithReplies, index) => {
+        {initComments.map((comment: CommentWithReplies, index) => {
           return <Comment postUserId={postUserId} comment={comment} key={index} />;
         })}
       </div>
-      {session && <CreateComment postId={postId} username={session.user?.name} />}
+      {session?.user?.name && (
+        <CreateComment onCreateComment={handleCreateComment} postId={postId} />
+      )}
     </div>
   );
-}
+};
