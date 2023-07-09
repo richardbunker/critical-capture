@@ -1,9 +1,22 @@
-import PostsContainer from "@/components/posts/posts";
+import { PostsContainer } from "@/components/posts/PostsContainer";
+import prisma from "@/lib/prisma";
+import { Posts } from "@/lib/types";
 import { Session, getServerSession } from "next-auth";
 import Link from "next/link";
 
 export default async function Landing() {
   const session = await getServerSession();
+  const posts: Posts = await prisma.post.findMany({
+    include: {
+      user: { select: { username: true } },
+      comments: {
+        include: {
+          replies: { include: { user: { select: { username: true } } } },
+          user: { select: { username: true } },
+        },
+      },
+    },
+  });
   return (
     <main className="font-sans text-lg space-y-4">
       <section className="text-center w-full py-2 mt-4">
@@ -31,7 +44,7 @@ export default async function Landing() {
         <h3 className="w-full text-center text-lg font-brand text-gray-100 px-4">
           Recent Critiques
         </h3>
-        <PostsContainer session={session} />
+        <PostsContainer posts={posts} session={session} />
       </section>
     </main>
   );

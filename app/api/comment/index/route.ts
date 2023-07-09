@@ -3,18 +3,21 @@ import { NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
-export async function POST(request: Request) {
-  const session = await getServerSession();
-  const { postId }: { postId: number } = await request.json();
-  if (session?.user?.name) {
-    const comments = await prisma.comment.findMany({
-      where: { postId: postId },
-      include: { replies: true, user: { select: { username: true } } },
-    });
-    return NextResponse.json({ err: false, data: comments });
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const postId = searchParams.get("postId");
+  if (isNaN(Number(postId))) {
+    return NextResponse.json(
+      { err: false, message: "Invalid postId. Must be valid integer." },
+      { status: 400 }
+    );
   }
-  return new Response(JSON.stringify({ err: true, data: null }), {
-    status: 500,
-    headers: { "Content-Type": "application/json" },
+  const comments = await prisma.comment.findMany({
+    where: { postId: Number(postId) },
+    include: {
+      replies: { include: { user: { select: { username: true } } } },
+      user: { select: { username: true } },
+    },
   });
+  return NextResponse.json({ err: false, data: comments });
 }
