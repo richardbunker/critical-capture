@@ -12,7 +12,7 @@ async function main() {
   await createUsers(prisma, hash);
   await createPosts(prisma);
   await createComments(prisma);
-  await createReplies(prisma);
+  // await createReplies(prisma);
 }
 main()
   .then(async () => {
