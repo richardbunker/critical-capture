@@ -4,7 +4,7 @@ import { prettyDate } from "../clib/utils";
 
 export const Reply = ({ reply, postUserId }: { reply: ReplyWithUser; postUserId: number }) => {
   return (
-    <section id="reply" className="pl-2">
+    <section id="reply" className="pl-4">
       <div className="flex flex-col p-1 text-sm">
         <span className="text-purple-400">
           {reply.userId === postUserId ? reply.user.username + " (📸 author)" : reply.user.username}

@@ -1,4 +1,4 @@
-import { Comment, Post, Reply } from "@prisma/client";
+import { Comment, Post } from "@prisma/client";
 
 export type Posts = PostWithComments[];
 export type PostWithComments = Post & {
@@ -6,4 +6,4 @@ export type PostWithComments = Post & {
   user: { username: string };
 };
 export type CommentWithReplies = Comment & { user: { username: string }; replies: ReplyWithUser[] };
-export type ReplyWithUser = Reply & { user: { username: string } };
+export type ReplyWithUser = Comment & { user: { username: string } };

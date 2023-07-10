@@ -36,13 +36,26 @@ export const CommentsContainer = ({
   };
   return (
     <div>
-      <div className="">
+      <div className="space-y-2">
         {initComments.map((comment: CommentWithReplies, index) => {
-          return <Comment postUserId={postUserId} comment={comment} key={index} />;
+          return (
+            <Comment
+              onCreateReply={handleCreateComment}
+              postUserId={postUserId}
+              comment={comment}
+              key={index}
+              session={session}
+            />
+          );
         })}
       </div>
       {session?.user?.name && (
-        <CreateComment onCreateComment={handleCreateComment} postId={postId} />
+        <CreateComment
+          placeholder="Provide a critique.."
+          parentId={false}
+          onCreateComment={handleCreateComment}
+          postId={postId}
+        />
       )}
     </div>
   );

@@ -13,7 +13,6 @@ model User {
   password String    @db.VarChar(255)
   Comment  Comment[]
   Post     Post[]
-  Reply    Reply[]
 }
 
 model Post {
@@ -33,28 +32,17 @@ model Post {
 }
 
 model Comment {
-  id        Int      @id @default(autoincrement())
-  text      String
-  createdAt DateTime @default(now()) @db.Timestamp(0)
+  id        Int       @id @default(autoincrement())
+  text      String    @db.LongText()
+  createdAt DateTime  @default(now()) @db.Timestamp(0)
   userId    Int
   postId    Int
-  user      User     @relation(fields: [userId], references: [id])
-  post      Post     @relation(fields: [postId], references: [id])
-  replies   Reply[]
+  parent    Comment?  @relation("CommentReply", fields: [parentId], references: [id])
+  parentId  Int?
+  replies   Comment[] @relation("CommentReply")
+  user      User      @relation(fields: [userId], references: [id])
+  post      Post      @relation(fields: [postId], references: [id])
 
   @@index([userId], map: "Comment_userId_fkey")
   @@index([postId], map: "Comment_postId_fkey")
-}
-
-model Reply {
-  id        Int      @id @default(autoincrement())
-  text      String
-  createdAt DateTime @default(now()) @db.Timestamp(0)
-  userId    Int
-  commentId Int
-  user      User     @relation(fields: [userId], references: [id])
-  comment   Comment  @relation(fields: [commentId], references: [id])
-
-  @@index([userId], map: "Reply_userId_fkey")
-  @@index([commentId], map: "Reply_commentId_fkey")
 }
