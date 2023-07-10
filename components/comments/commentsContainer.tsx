@@ -36,7 +36,7 @@ export const CommentsContainer = ({
   };
   return (
     <div>
-      <div className="space-y-4">
+      <div className="space-y-2">
         {initComments.map((comment: CommentWithReplies, index) => {
           return (
             <Comment
@@ -44,6 +44,7 @@ export const CommentsContainer = ({
               postUserId={postUserId}
               comment={comment}
               key={index}
+              session={session}
             />
           );
         })}

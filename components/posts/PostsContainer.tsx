@@ -1,7 +1,7 @@
 "use client";
 import { Posts } from "@/lib/types";
 import { Session } from "next-auth";
-import { Post } from "./post";
+import { Post } from "./Post";
 
 export const PostsContainer = ({ posts, session }: { session: Session | null; posts: Posts }) => {
   return (

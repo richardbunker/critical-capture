@@ -4,15 +4,18 @@ import { RepliesContainer } from "../replies/RepliesContainer";
 import { prettyDate } from "../clib/utils";
 import { useState } from "react";
 import CreateComment from "./create";
+import { Session } from "next-auth";
 
 export const Comment = ({
   comment,
   postUserId,
   onCreateReply,
+  session,
 }: {
   comment: CommentWithReplies;
   postUserId: number;
   onCreateReply: Function;
+  session: Session | null;
 }) => {
   const [addReply, setAddReply] = useState(false);
   const showAddReply = () => {
@@ -42,7 +45,7 @@ export const Comment = ({
         </div>
       )}
       <div className="flex items-center justify-start space-x-2 pb-2">
-        {!addReply && (
+        {!addReply && session && (
           <button
             onClick={showAddReply}
             className="text-xs font-bold max-w-max mt-1 text-gray-400 hover:text-blue-500 cursor-pointer"
