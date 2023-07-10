@@ -11,16 +11,16 @@ export const Post = ({ post, session }: { post: PostWithComments; session: Sessi
       <div className="space-y-2">
         <div className="space-y-1">
           <h4 className="font-bold text-gray-600 flex flex-col items-start justify-start">
-            <span className="text-base">{post.caption}</span>
+            <span className="text-xl">{post.caption}</span>
             <div className="flex items-center justify-between space-x-1">
-              <span className="text-xs font-bold text-gray-300">by</span>
-              <span className="text-xs font-bold text-purple-300">{post.user.username}</span>
-              <span className="text-xs font-normal text-gray-300">
+              <span className="text-sm font-bold text-gray-300">by</span>
+              <span className="text-sm font-bold text-purple-300">{post.user.username}</span>
+              <span className="text-sm font-normal text-gray-300">
                 {prettyDate(post.createdAt)}
               </span>
             </div>
           </h4>
-          <p className="text-xs text-gray-400 font-brand">
+          <p className="text-base text-gray-400 font-brand">
             {post.focal_length}mm | {post.shutter_speed} | f{post.f_stop} | ISO{post.iso}
           </p>
         </div>
@@ -32,7 +32,7 @@ export const Post = ({ post, session }: { post: PostWithComments; session: Sessi
             className="object-contain py-4"
           />
         </div>
-        <div id="comments" className="">
+        <div id="comments" className="py-1">
           <CommentsContainer
             postUserId={post.userId}
             comments={post.comments}
