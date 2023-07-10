@@ -4,7 +4,12 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   const session = await getServerSession();
-  const { text, postId, date }: { text: string; postId: number; date: Date } = await request.json();
+  const {
+    text,
+    postId,
+    date,
+    parentId,
+  }: { text: string; postId: number; date: Date; parentId: number | false } = await request.json();
   if (session?.user?.name) {
     const user = await prisma.user.findFirst({ where: { username: session?.user?.name } });
     if (user) {
@@ -14,6 +19,7 @@ export async function POST(request: Request) {
           createdAt: date,
           postId: postId,
           userId: user.id,
+          parentId: parentId === false ? null : parentId,
         },
         include: {
           user: { select: { username: true } },

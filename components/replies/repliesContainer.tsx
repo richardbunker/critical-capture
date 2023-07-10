@@ -10,10 +10,10 @@ export const RepliesContainer = ({
   postUserId: number;
 }) => {
   return (
-    <>
+    <div className="space-y-1">
       {replies.map((reply, index) => {
         return <Reply postUserId={postUserId} reply={reply} key={index} />;
       })}
-    </>
+    </div>
   );
 };

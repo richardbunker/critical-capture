@@ -13,7 +13,7 @@ export async function GET(request: Request) {
     );
   }
   const comments = await prisma.comment.findMany({
-    where: { postId: Number(postId) },
+    where: { postId: Number(postId), parentId: null },
     include: {
       replies: { include: { user: { select: { username: true } } } },
       user: { select: { username: true } },
