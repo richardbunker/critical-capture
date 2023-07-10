@@ -19,8 +19,8 @@ export default async function Landing() {
   });
   return (
     <main className="font-sans text-lg space-y-4">
-      <section className="text-center w-full py-2 mt-4">
-        <h1 className="font-brand text-6xl tracking-wide text-yellow-100 font-bold">
+      <section className="text-center w-full py-2 mt-4 space-y-2">
+        <h1 className="font-brand md:text-6xl text-4xl tracking-wide text-yellow-100 font-bold">
           Critical Captures
         </h1>
         <h3 className="text-lg text-yellow-200">Real feedback from real photographers.</h3>
@@ -43,7 +43,7 @@ export default async function Landing() {
         </article>
       </section>
       <section className="py-2 space-y-2 w-full md:max-w-2xl md:mx-auto">
-        <h3 className="w-full text-center text-4xl font-brand text-blue-500 px-4 tracking-wide">
+        <h3 className="w-full text-center md:text-4xl text-2xl font-brand text-white px-4 tracking-wide">
           🧐 Recent Critiques 🧐
         </h3>
         <PostsContainer posts={posts} session={session} />
