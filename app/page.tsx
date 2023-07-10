@@ -10,6 +10,7 @@ export default async function Landing() {
     include: {
       user: { select: { username: true } },
       comments: {
+        where: { parentId: null },
         include: {
           replies: { include: { user: { select: { username: true } } } },
           user: { select: { username: true } },

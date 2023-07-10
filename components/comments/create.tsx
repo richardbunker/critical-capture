@@ -3,9 +3,13 @@ import { useState } from "react";
 export default function CreateComment({
   postId,
   onCreateComment,
+  parentId,
+  placeholder,
 }: {
   postId: number;
   onCreateComment: () => void;
+  parentId: number | false;
+  placeholder: string;
 }) {
   const [text, setText] = useState("");
   const handleSubmit = (e: any) => {
@@ -18,7 +22,7 @@ export default function CreateComment({
           "Content-Type": "application/json",
         },
         cache: "no-store",
-        body: JSON.stringify({ text, postId, date: new Date() }),
+        body: JSON.stringify({ text, postId, date: new Date(), parentId }),
       })
         .then((data) => data.json())
         .then(({ err, data }) => {
@@ -34,12 +38,12 @@ export default function CreateComment({
   return (
     <section>
       <form onSubmit={handleSubmit} className="w-full">
-        <article className="flex text-base text-gray-600 border-2 rounded-full bg-purple-200 w-full">
+        <article className="flex text-sm text-gray-600 border-2 rounded-full bg-purple-200 w-full">
           <input
             onChange={(e) => setText(e.target.value)}
             value={text}
             className="py-2 px-4 w-full rounded-full focus:outline-purple-300 border"
-            placeholder="Provide a critique..."
+            placeholder={placeholder}
           />
           <button type="submit" className="flex items-center justify-center px-1 rounded-r-full">
             <svg
