@@ -3,6 +3,7 @@ import { PostWithComments } from "@/lib/types";
 import { Session } from "next-auth";
 import { CommentsContainer } from "../comments/CommentsContainer";
 import { prettyDate } from "../clib/utils";
+import Image from "next/image";
 
 export const Post = ({ post, session }: { post: PostWithComments; session: Session | null }) => {
   return (
@@ -23,10 +24,14 @@ export const Post = ({ post, session }: { post: PostWithComments; session: Sessi
             {post.focal_length}mm | {post.shutter_speed} | f{post.f_stop} | ISO{post.iso}
           </p>
         </div>
-        <img
-          src={post.image}
-          className="flex items-center justify-center object-fill rounded-xl w-full bg-gray-200 text-gray-100"
-        />
+        <div className="w-full relative h-[500px] bg-black rounded-sm shadow-sm">
+          <Image
+            src={post.image}
+            alt="Photo that needs a good critique."
+            fill={true}
+            className="object-contain py-4"
+          />
+        </div>
         <div id="comments" className="">
           <CommentsContainer
             postUserId={post.userId}
