@@ -1,24 +1,31 @@
 import { PostsContainer } from "@/components/posts/PostsContainer";
 import { Menu } from "@/components/ui/menu";
 import { PageTitle } from "@/components/ui/pageTitle";
+import prisma from "@/lib/prisma";
+import { Posts } from "@/lib/types";
 import { getServerSession } from "next-auth";
 
 export const revalidate = 0;
 
 async function getData() {
-  const res = await fetch(process.env.NEXTAUTH_URL + "/api/post/index", {
-    cache: "no-store",
+  const posts: Posts = await prisma.post.findMany({
+    include: {
+      user: { select: { username: true } },
+      comments: {
+        where: { parentId: null },
+        include: {
+          replies: { include: { user: { select: { username: true } } } },
+          user: { select: { username: true } },
+        },
+      },
+    },
   });
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
+  return posts;
 }
 
 export default async function Landing() {
   const session = await getServerSession();
-  const { posts } = await getData();
+  const posts = await getData();
   return (
     <main className="font-sans text-lg space-y-4">
       <Menu />

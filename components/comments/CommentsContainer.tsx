@@ -18,7 +18,7 @@ export const CommentsContainer = ({
 }) => {
   const [initComments, setInitComments] = useState(comments);
   const handleCreateComment = () => {
-    fetch(`/api/post-comments/${postId}`, {
+    fetch(`/api/posts/${postId}/comments`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -26,15 +26,9 @@ export const CommentsContainer = ({
       cache: "no-store",
     })
       .then((data) => data.json())
-      .then(({ err, data }) => {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log(data);
-          setInitComments(data);
-        }
-      })
-      .catch((err) => console.log(err));
+      .then(({ err, comments }) => {
+        setInitComments(comments);
+      });
   };
   return (
     <div>
