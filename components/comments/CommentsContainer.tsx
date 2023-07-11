@@ -33,7 +33,8 @@ export const CommentsContainer = ({
           console.log(data);
           setInitComments(data);
         }
-      });
+      })
+      .catch((err) => console.log(err));
   };
   return (
     <div>

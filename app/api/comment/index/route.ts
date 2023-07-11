@@ -6,7 +6,7 @@ export async function GET(request: Request) {
   const postId = searchParams.get("postId");
   if (isNaN(Number(postId))) {
     return NextResponse.json(
-      { err: false, message: "Invalid postId. Must be valid integer." },
+      { err: true, message: "Invalid postId. Must be valid integer." },
       { status: 400 }
     );
   }
