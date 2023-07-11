@@ -3,10 +3,11 @@ import { Menu } from "@/components/ui/menu";
 import { PageTitle } from "@/components/ui/pageTitle";
 import { getServerSession } from "next-auth";
 
+export const revalidate = 0;
+
 async function getData() {
   const res = await fetch(process.env.NEXTAUTH_URL + "/api/post/index", {
     cache: "no-store",
-    next: { revalidate: 0 },
   });
   if (!res.ok) {
     throw new Error("Failed to fetch data");
