@@ -18,7 +18,7 @@ export const CommentsContainer = ({
 }) => {
   const [initComments, setInitComments] = useState(comments);
   const handleCreateComment = () => {
-    fetch(`/api/comment/index?postId=${postId}`, {
+    fetch(`/api/post-comments/${postId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
