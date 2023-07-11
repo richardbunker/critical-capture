@@ -19,7 +19,10 @@ export async function GET(request: Request) {
         },
       },
     });
-    return NextResponse.json({ err: false, posts });
+    return NextResponse.json(
+      { err: false, posts },
+      { status: 200, headers: { "Cache-Control": "maxage=0 s-maxage=0" } }
+    );
   }
   return NextResponse.json({ err: true, data: "No tag name supplied" });
 }

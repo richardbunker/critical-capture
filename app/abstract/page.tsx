@@ -6,6 +6,7 @@ import { getServerSession } from "next-auth";
 
 async function getData() {
   const res = await fetch(process.env.NEXTAUTH_URL + "/api/post/tagged?tagName=abstract", {
+    next: { revalidate: 0 },
     cache: "no-store",
   });
   if (!res.ok) {
@@ -18,6 +19,7 @@ async function getData() {
 export default async function Abstract() {
   const session = await getServerSession();
   const { posts }: { posts: Posts } = await getData();
+  console.log("hit");
   return (
     <main className="font-sans text-lg space-y-4">
       <Menu />
