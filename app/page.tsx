@@ -6,6 +6,7 @@ import { getServerSession } from "next-auth";
 async function getData() {
   const res = await fetch(process.env.NEXTAUTH_URL + "/api/post/index", {
     cache: "no-store",
+    next: { revalidate: 0 },
   });
   if (!res.ok) {
     throw new Error("Failed to fetch data");
