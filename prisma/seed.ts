@@ -1,6 +1,6 @@
 import { passwordHashGenerator } from "../lib/utils";
 import { PrismaClient } from "@prisma/client";
-import { createComments, createPosts, createReplies, createUsers } from "./data";
+import { createComments, createPosts, createTags, createTagsOnPosts, createUsers } from "./data";
 const prisma = new PrismaClient();
 
 async function main() {
@@ -12,7 +12,8 @@ async function main() {
   await createUsers(prisma, hash);
   await createPosts(prisma);
   await createComments(prisma);
-  // await createReplies(prisma);
+  await createTags(prisma);
+  await createTagsOnPosts(prisma);
 }
 main()
   .then(async () => {

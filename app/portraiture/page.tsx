@@ -1,10 +1,11 @@
 import { PostsContainer } from "@/components/posts/PostsContainer";
 import { Menu } from "@/components/ui/menu";
 import { PageTitle } from "@/components/ui/pageTitle";
+import { Posts } from "@/lib/types";
 import { getServerSession } from "next-auth";
 
 async function getData() {
-  const res = await fetch(process.env.NEXTAUTH_URL + "/api/post/index", {
+  const res = await fetch(process.env.NEXTAUTH_URL + "/api/post/tagged?tagName=portraiture", {
     cache: "no-store",
   });
   if (!res.ok) {
@@ -14,9 +15,9 @@ async function getData() {
   return res.json();
 }
 
-export default async function Landing() {
+export default async function Portraiture() {
   const session = await getServerSession();
-  const { posts } = await getData();
+  const { posts }: { posts: Posts } = await getData();
   return (
     <main className="font-sans text-lg space-y-4">
       <Menu />

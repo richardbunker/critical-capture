@@ -174,33 +174,42 @@ export async function createComments(prisma: PrismaClient) {
   });
 }
 
-export async function createReplies(prisma: PrismaClient) {
-  return prisma.reply.createMany({
+export async function createTags(prisma: PrismaClient) {
+  return prisma.tag.createMany({
     data: [
-      {
-        commentId: 1,
-        userId: 1,
-        text: "Thank you!",
-        createdAt: new Date(),
-      },
-      {
-        commentId: 1,
-        userId: 4,
-        text: "Agree",
-        createdAt: new Date(),
-      },
-      {
-        commentId: 5,
-        userId: 2,
-        text: "Agree",
-        createdAt: new Date(),
-      },
-      {
-        commentId: 4,
-        userId: 2,
-        text: "Thank you so much 🙌",
-        createdAt: new Date(),
-      },
+      { name: "landscape" },
+      { name: "street" },
+      { name: "portraiture" },
+      { name: "fine art" },
+      { name: "astro" },
+      { name: "black and white" },
+      { name: "minimal" },
+      { name: "abstract" },
+    ],
+  });
+}
+
+export async function createTagsOnPosts(prisma: PrismaClient) {
+  return prisma.tagsOnPosts.createMany({
+    data: [
+      { postId: 1, tagId: 7 },
+      { postId: 2, tagId: 7 },
+      { postId: 2, tagId: 8 },
+      { postId: 3, tagId: 1 },
+      { postId: 4, tagId: 2 },
+      { postId: 4, tagId: 7 },
+      { postId: 5, tagId: 2 },
+      { postId: 5, tagId: 8 },
+      { postId: 6, tagId: 7 },
+      { postId: 6, tagId: 8 },
+      { postId: 7, tagId: 1 },
+      { postId: 7, tagId: 2 },
+      { postId: 8, tagId: 4 },
+      { postId: 8, tagId: 6 },
+      { postId: 8, tagId: 7 },
+      { postId: 9, tagId: 1 },
+      { postId: 9, tagId: 6 },
+      { postId: 10, tagId: 1 },
     ],
   });
 }

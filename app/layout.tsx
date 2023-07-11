@@ -19,9 +19,9 @@ export const metadata = {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${nunito.variable} ${nova.variable}`}>
-      <body className="bg-gradient-to-b from-blue-300 to-teal-400 min-h-screen text-gray-500">
+      <body className="bg-gradient-to-b from-blue-300 to-teal-400 min-h-screen text-gray-500 flex flex-col">
         <Navbar />
-        <main className="pt-10">{children}</main>
+        <main className="pt-10 flex-1">{children}</main>
         <Footer />
       </body>
     </html>

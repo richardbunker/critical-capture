@@ -6,9 +6,9 @@ export default async function Navbar() {
   return (
     <nav className="flex items-center justify-between px-2 bg-white shadow-sm fixed top-0 left-0 w-full h-10 z-50">
       <section>
-        <Link href={"/"} title="Home" className="font-brand text-purple-600 text-lg">
+        <a href={"/"} title="Home" className="font-brand text-purple-600 text-lg">
           CC
-        </Link>
+        </a>
       </section>
       <section className="flex items-center justify-between space-x-4">
         {session ? (

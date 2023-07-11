@@ -16,17 +16,18 @@ model User {
 }
 
 model Post {
-  id            Int       @id @default(autoincrement())
-  caption       String    @db.VarChar(255)
-  focal_length  String    @db.VarChar(255)
-  shutter_speed String    @db.VarChar(255)
-  f_stop        String    @db.VarChar(255)
-  iso           String    @db.VarChar(255)
-  createdAt     DateTime  @default(now()) @db.Timestamp(0)
+  id            Int           @id @default(autoincrement())
+  caption       String        @db.VarChar(255)
+  focal_length  String        @db.VarChar(255)
+  shutter_speed String        @db.VarChar(255)
+  f_stop        String        @db.VarChar(255)
+  iso           String        @db.VarChar(255)
+  createdAt     DateTime      @default(now()) @db.Timestamp(0)
   image         String
   userId        Int
   comments      Comment[]
-  user          User      @relation(fields: [userId], references: [id])
+  user          User          @relation(fields: [userId], references: [id])
+  tags          TagsOnPosts[]
 
   @@index([userId], map: "userId")
 }
@@ -45,4 +46,19 @@ model Comment {
 
   @@index([userId], map: "Comment_userId_fkey")
   @@index([postId], map: "Comment_postId_fkey")
+}
+
+model Tag {
+  id    Int           @id @default(autoincrement())
+  name  String        @db.VarChar(255)
+  posts TagsOnPosts[]
+}
+
+model TagsOnPosts {
+  post   Post @relation(fields: [postId], references: [id])
+  postId Int
+  tag    Tag  @relation(fields: [tagId], references: [id])
+  tagId  Int
+
+  @@id([postId, tagId])
 }
