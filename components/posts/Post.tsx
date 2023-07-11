@@ -1,9 +1,9 @@
 "use client";
 import { PostWithComments } from "@/lib/types";
 import { Session } from "next-auth";
-import { CommentsContainer } from "../comments/CommentsContainer";
 import { prettyDate } from "../clib/utils";
 import Image from "next/image";
+import { CommentsContainer } from "../comments/CommentsContainer";
 
 export const Post = ({ post, session }: { post: PostWithComments; session: Session | null }) => {
   return (
