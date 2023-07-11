@@ -1,9 +1,9 @@
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const postId = searchParams.get("postId");
+export async function GET(request: Request, context: any) {
+  const { params } = context;
+  const postId = params.post;
   if (isNaN(Number(postId))) {
     return NextResponse.json(
       { err: true, message: "Invalid postId. Must be valid integer." },
