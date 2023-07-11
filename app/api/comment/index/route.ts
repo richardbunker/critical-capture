@@ -1,7 +1,7 @@
 import prisma from "@/lib/prisma";
-import { NextApiResponse } from "next";
-import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
+
+export const revalidate = 0;
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
